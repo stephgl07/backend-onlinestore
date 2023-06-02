@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Tranzact.OnlineStore.Api.Middlewares;
+using Tranzact.OnlineStore.Application.Handlers;
 using Tranzact.OnlineStore.Application.Services.Product;
 using Tranzact.OnlineStore.Domain.Services.Product;
 using Tranzact.OnlineStore.Domain.Services.UnitOfWork;
@@ -45,7 +47,8 @@ namespace Tranzact.OnlineStore.Api
 
             // Inyección de dependencias
             services.AddTransient<IProductService, ProductService>();
-
+            services.AddTransient<IApiResponseHandler, ApiResponseHandler>();
+            services.AddTransient<ErrorHandlerMiddleware>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
@@ -62,6 +65,7 @@ namespace Tranzact.OnlineStore.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

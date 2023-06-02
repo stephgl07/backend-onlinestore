@@ -47,10 +47,10 @@ namespace Tranzact.OnlineStore.Application.Services.Product
                     Description = product.Description,
                 };
             }
-            catch (Exception ex)
+            catch
             {
                 _unitOfWork.Rollback();
-                throw ex;
+                throw;
             }
         }
 
