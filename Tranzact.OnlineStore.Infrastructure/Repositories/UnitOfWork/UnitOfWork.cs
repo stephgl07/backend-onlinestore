@@ -4,29 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tranzact.OnlineStore.Domain.Services.Product;
+using Tranzact.OnlineStore.Domain.Services.ProductDetails;
 using Tranzact.OnlineStore.Domain.Services.UnitOfWork;
 using Tranzact.OnlineStore.Infrastructure.Data;
 using Tranzact.OnlineStore.Infrastructure.Repositories.Product;
+using Tranzact.OnlineStore.Infrastructure.Repositories.ProductDetails;
 
 namespace Tranzact.OnlineStore.Infrastructure.Repositories.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
         //DbContext
-        private readonly DBProductsContext _context;
+        private readonly DBOnlineStoreContext _context;
         private List<Action> _rollbackActions;
 
         //Repositories
         private readonly IProductRepository _productRepository;
+        private readonly IProductDetailRepository _productDetailRepository;
 
-        public UnitOfWork(DBProductsContext context)
+        public UnitOfWork(DBOnlineStoreContext context)
         {
             _context = context;
             _rollbackActions = new List<Action>();
             _productRepository = new ProductRepository(_context);
+            _productDetailRepository = new ProductDetailRepository(_context);
         }
 
-        public IProductRepository Product => _productRepository ?? new ProductRepository(_context);
+        public IProductRepository ProductMaster => _productRepository ?? new ProductRepository(_context);
+        public IProductDetailRepository ProductDetail => _productDetailRepository ?? new ProductDetailRepository(_context);
 
 
         public void BeginTransaction()
@@ -53,6 +58,7 @@ namespace Tranzact.OnlineStore.Infrastructure.Repositories.UnitOfWork
             {
                 rollbackAction.Invoke();
             }
+            //_context.Database.RollbackTransaction();
         }
 
         public async Task SaveChangesAsync()
@@ -63,13 +69,11 @@ namespace Tranzact.OnlineStore.Infrastructure.Repositories.UnitOfWork
             }
             catch (Exception)
             {
-                // Ocurrió un error al guardar los cambios, se necesita realizar un rollback
                 Rollback();
-                throw; // Relanza la excepción para que el llamador pueda manejarla
+                throw;
             }
             finally
             {
-                // Limpia la lista de acciones de rollback para futuras transacciones
                 _rollbackActions.Clear();
             }
         }

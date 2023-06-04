@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Tranzact.OnlineStore.Api.Middlewares;
 using Tranzact.OnlineStore.Application.Handlers;
 using Tranzact.OnlineStore.Application.Services.Product;
+using Tranzact.OnlineStore.Application.Services.ProductDetails;
 using Tranzact.OnlineStore.Domain.Services.Product;
+using Tranzact.OnlineStore.Domain.Services.ProductDetails;
 using Tranzact.OnlineStore.Domain.Services.UnitOfWork;
 using Tranzact.OnlineStore.Infrastructure.Data;
 using Tranzact.OnlineStore.Infrastructure.Repositories.UnitOfWork;
@@ -39,14 +41,15 @@ namespace Tranzact.OnlineStore.Api
             // Configuración de las cadenas de conexión
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddDbContext<DBProductsContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DB_Products_Test"))
+            services.AddDbContext<DBOnlineStoreContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DB_OnlineStore"))
             );
 
             services.AddControllers();
 
             // Inyección de dependencias
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductDetailService, ProductDetailService>();
             services.AddTransient<IApiResponseHandler, ApiResponseHandler>();
             services.AddTransient<ErrorHandlerMiddleware>();
             services.AddEndpointsApiExplorer();

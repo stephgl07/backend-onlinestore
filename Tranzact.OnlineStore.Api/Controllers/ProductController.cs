@@ -20,17 +20,38 @@ namespace Tranzact.OnlineStore.Api.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllContent")]
+        public async Task<IActionResult> GetAllContent()
+        {
+            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAllContent(), "Lista de productos obtenida exitosamente");
+            return asdas;
+        }
+
+        [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAll(), "Lista de productos obtenida exitosamente");
             return asdas;
         }
-            
+
+        // Required in Document
+        [HttpGet]
+        [Route("GetAllById")]
+        public async Task<IActionResult> GetAllById([FromQuery] int ProductId)
+        {
+            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAllById(ProductId), "Lista de productos obtenida exitosamente");
+            return asdas;
+        }
 
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create([FromBody] AddProductDTO newProduct) =>
+        public async Task<IActionResult> Create([FromBody] AddEditProductDTO newProduct) =>
             await _apiResponseHandler.HandleResponse(_productsService.Create(newProduct), "Producto creado exitosamente");
+
+        [HttpPut]
+        [Route("Update")]
+        public async Task<IActionResult> Update([FromBody] AddEditProductDTO newProduct) =>
+            await _apiResponseHandler.HandleResponse(_productsService.Update(newProduct), "Producto actualizado exitosamente");
     }
 }

@@ -3,18 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tranzact.OnlineStore.Api", "Tranzact.OnlineStore.Api\Tranzact.OnlineStore.Api.csproj", "{A199170F-72C1-484C-967A-3FDCE0F9AD7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tranzact.OnlineStore.Api", "Tranzact.OnlineStore.Api\Tranzact.OnlineStore.Api.csproj", "{A199170F-72C1-484C-967A-3FDCE0F9AD7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tranzact.OnlineStore.Application", "Tranzact.OnlineStore.Application\Tranzact.OnlineStore.Application.csproj", "{C974730C-0699-4324-8A86-C3F10C261AD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tranzact.OnlineStore.Application", "Tranzact.OnlineStore.Application\Tranzact.OnlineStore.Application.csproj", "{C974730C-0699-4324-8A86-C3F10C261AD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tranzact.OnlineStore.Domain", "Tranzact.OnlineStore.Domain\Tranzact.OnlineStore.Domain.csproj", "{F39C6E00-F4EC-4D68-A2C7-D7E6E95354D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tranzact.OnlineStore.Domain", "Tranzact.OnlineStore.Domain\Tranzact.OnlineStore.Domain.csproj", "{F39C6E00-F4EC-4D68-A2C7-D7E6E95354D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tranzact.OnlineStore.Infrastructure", "Tranzact.OnlineStore.Infrastructure\Tranzact.OnlineStore.Infrastructure.csproj", "{8D054844-4BFB-4A94-9174-D95C0CB42EFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tranzact.OnlineStore.Infrastructure", "Tranzact.OnlineStore.Infrastructure\Tranzact.OnlineStore.Infrastructure.csproj", "{8D054844-4BFB-4A94-9174-D95C0CB42EFB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D23D8CDF-4940-45E5-8904-636E7FFBB49C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tranzact.OnlineStore.Scaffold", "ConsoleApp1\Tranzact.OnlineStore.Scaffold.csproj", "{A7247DC0-9095-4145-8C8B-190A8EFAE94D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB_Scaffold", "DB_Scaffold", "{81122947-2B24-40D0-B7BE-1E92FC55ADDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,9 +42,16 @@ Global
 		{8D054844-4BFB-4A94-9174-D95C0CB42EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D054844-4BFB-4A94-9174-D95C0CB42EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D054844-4BFB-4A94-9174-D95C0CB42EFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7247DC0-9095-4145-8C8B-190A8EFAE94D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7247DC0-9095-4145-8C8B-190A8EFAE94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7247DC0-9095-4145-8C8B-190A8EFAE94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7247DC0-9095-4145-8C8B-190A8EFAE94D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A7247DC0-9095-4145-8C8B-190A8EFAE94D} = {81122947-2B24-40D0-B7BE-1E92FC55ADDE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFCB2BCE-E825-4E98-94D4-56030D70C278}

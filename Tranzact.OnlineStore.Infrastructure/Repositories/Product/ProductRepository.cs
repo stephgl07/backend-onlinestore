@@ -13,25 +13,48 @@ namespace Tranzact.OnlineStore.Infrastructure.Repositories.Product
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly DBProductsContext _context;
-        protected readonly DbSet<ProductBE> _entities;
-        public ProductRepository(DBProductsContext context) 
+        private readonly DBOnlineStoreContext _context;
+        protected readonly DbSet<ProductMaster> _entities;
+        public ProductRepository(DBOnlineStoreContext context) 
         {
             _context = context;
-            _entities = context.Set<ProductBE>();
+            _entities = context.Set<ProductMaster>();
         }
-        public async Task<IEnumerable<ProductBE>> GetAll()
+        public async Task<IEnumerable<ProductMaster>> GetAllContent()
         {
-            return await _entities.ToListAsync();
+            return await _entities
+                .Include(pd => pd.ProductDetails)
+                .Include(ds => ds.ProductSuppliers)
+                    .ThenInclude(s => s.Supplier)
+                .Include(c => c.Category)
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<ProductMaster>> GetAll()
+        {
+            return await _entities
+                .ToListAsync();
+        }
+        public async Task<ProductMaster?> GetById(int ProductId)
+        {
+            return await _entities
+                .FindAsync(ProductId);
         }
 
-        public async Task Create(ProductBE product)
+        public async Task Create(ProductMaster product)
         {
-            await _entities.AddAsync(product);
+            await _entities
+                .AddAsync(product);
         }
-        public void Remove(ProductBE product)
+        public void Update(ProductMaster product)
         {
-            _entities.Remove(product);
+            _entities
+                .Update(product);
+        }
+
+        public void Remove(ProductMaster product)
+        {
+            _entities
+                .Remove(product);
         }
     }
 }

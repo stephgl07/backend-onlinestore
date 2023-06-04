@@ -10,8 +10,11 @@ namespace Tranzact.OnlineStore.Domain.Services.Product
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<ProductBE>> GetAll();
-        Task Create(ProductBE product);
-        void Remove(ProductBE product);
+        Task<IEnumerable<ProductMaster>> GetAllContent();
+        Task<IEnumerable<ProductMaster>> GetAll();
+        Task<ProductMaster?> GetById(int ProductId);
+        Task Create(ProductMaster product);
+        void Update(ProductMaster product);
+        void Remove(ProductMaster product);
     }
 }

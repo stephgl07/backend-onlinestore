@@ -8,22 +8,36 @@ using Tranzact.OnlineStore.Domain.Models.BusinessEntities;
 
 namespace Tranzact.OnlineStore.Infrastructure.Data
 {
-    public class DBProductsContext : DbContext
+    public partial class DBOnlineStoreContext : DbContext
     {
-        public DBProductsContext()
+        public DBOnlineStoreContext()
         {
         }
-        public DBProductsContext(DbContextOptions<DBProductsContext> options)
+
+        public DBOnlineStoreContext(DbContextOptions<DBOnlineStoreContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<ProductBE> Product { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; } = null!;
+        public virtual DbSet<ProductDetail> ProductDetails { get; set; } = null!;
+        public virtual DbSet<ProductMaster> ProductMasters { get; set; } = null!;
+        public virtual DbSet<ProductSupplier> ProductSuppliers { get; set; } = null!;
+        public virtual DbSet<Supplier> Suppliers { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //configuraciones
-            modelBuilder.ApplyConfiguration(new ProductBEConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductMasterConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductSupplierConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+
+            modelBuilder.HasSequence<int>("SalesOrderNumber", "SalesLT");
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
