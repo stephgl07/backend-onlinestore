@@ -7,7 +7,7 @@ using Tranzact.OnlineStore.Domain.Services.Product;
 namespace Tranzact.OnlineStore.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProductController : Controller
     {
         private readonly IProductService _productsService;
