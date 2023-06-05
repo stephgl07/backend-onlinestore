@@ -21,5 +21,9 @@ namespace Tranzact.OnlineStore.Infrastructure.Api.AppConfiguration
         {
             return _configuration.GetSection("ExternalConnections")["ApiPromotions"];
         }
+        public string GetBlobStorageConnectionSring()
+        {
+            return _configuration.GetConnectionString("AzureBlobStorage");
+        }
     }
 }

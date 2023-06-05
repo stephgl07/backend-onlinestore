@@ -10,7 +10,6 @@ using Tranzact.OnlineStore.Domain.Api.ApiService;
 using Tranzact.OnlineStore.Domain.Api.AppConfiguration;
 using Tranzact.OnlineStore.Domain.Models.ApiPromotion;
 using Tranzact.OnlineStore.Domain.Models.BusinessEntities;
-using Tranzact.OnlineStore.Domain.Models.Constants;
 using Tranzact.OnlineStore.Domain.Models.DTOs;
 using Tranzact.OnlineStore.Domain.Services.Product;
 using Tranzact.OnlineStore.Domain.Services.UnitOfWork;
