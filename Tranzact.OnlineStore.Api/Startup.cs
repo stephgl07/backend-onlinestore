@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.AzureAppServices;
 using Tranzact.OnlineStore.Api.Middlewares;
 using Tranzact.OnlineStore.Application.Handlers;
 using Tranzact.OnlineStore.Application.Services.Product;
@@ -26,8 +26,20 @@ namespace Tranzact.OnlineStore.Api
             Configuration = configuration;
         }
 
+        public void ConfigureLogging(ILoggingBuilder logging)
+        {
+            logging.AddAzureWebAppDiagnostics();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AzureFileLoggerOptions>(options =>
+            {
+                options.FileName = "application-log.txt";
+                options.FileSizeLimit = 50 * 1024;
+                options.RetainedFileCountLimit = 5;
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy(
