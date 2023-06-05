@@ -2,16 +2,20 @@
 using Microsoft.Extensions.Logging.AzureAppServices;
 using Tranzact.OnlineStore.Api.Middlewares;
 using Tranzact.OnlineStore.Application.Handlers;
+using Tranzact.OnlineStore.Application.Services.Logger;
 using Tranzact.OnlineStore.Application.Services.Product;
 using Tranzact.OnlineStore.Application.Services.ProductDetails;
 using Tranzact.OnlineStore.Domain.Api.ApiService;
 using Tranzact.OnlineStore.Domain.Api.AppConfiguration;
+using Tranzact.OnlineStore.Domain.FileStorage;
+using Tranzact.OnlineStore.Domain.Services.Logger;
 using Tranzact.OnlineStore.Domain.Services.Product;
 using Tranzact.OnlineStore.Domain.Services.ProductDetails;
 using Tranzact.OnlineStore.Domain.Services.UnitOfWork;
 using Tranzact.OnlineStore.Infrastructure.Api.ApiService;
 using Tranzact.OnlineStore.Infrastructure.Api.AppConfiguration;
 using Tranzact.OnlineStore.Infrastructure.Data;
+using Tranzact.OnlineStore.Infrastructure.FileStorage;
 using Tranzact.OnlineStore.Infrastructure.Repositories.UnitOfWork;
 
 namespace Tranzact.OnlineStore.Api
@@ -77,9 +81,10 @@ namespace Tranzact.OnlineStore.Api
             services.AddTransient<IApiService, ApiService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProductDetailService, ProductDetailService>();
+            services.AddTransient<ILoggerService, LoggerService>();
+            services.AddTransient<IFileStorage, AzureBlobStorage>();
             services.AddTransient<IApiResponseHandler, ApiResponseHandler>();
-            services.AddTransient<ErrorHandlerMiddleware>();
-            services.AddTransient<AzureLogAnalyticsMiddleware>();
+            services.AddTransient<ErrorHandlerMiddleware>(next => new ErrorHandlerMiddleware(next.GetRequiredService<RequestDelegate>(), next.GetRequiredService<ILoggerService>()));
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
@@ -97,7 +102,8 @@ namespace Tranzact.OnlineStore.Api
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>(app.ApplicationServices.GetRequiredService<ILoggerService>());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

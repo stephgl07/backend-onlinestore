@@ -9,6 +9,7 @@ namespace Tranzact.OnlineStore.Domain.Api.AppConfiguration
     public interface IAppConfiguration
     {
         string GetApiPromotionsUrl();
+        string GetBlobStorageConnectionSring();
     }
 
 }
