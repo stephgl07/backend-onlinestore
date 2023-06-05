@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tranzact.OnlineStore.Domain.Exceptions.Core.Business
+namespace Tranzact.OnlineStore.Domain.Models.Exceptions.Core.Business
 {
     public class BusinessException : Exception
     {

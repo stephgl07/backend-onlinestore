@@ -102,23 +102,33 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
         }
 
         // Map BE to DTO for GetAllById
-        public IEnumerable<GetAllByIdProductsDTO> MapProductMasterGetAllById(ProductMaster products)
+        public GetAllByIdProductsDTO MapProductMasterGetAllById(ProductMaster products)
         {
-            var productsDTO = new List<GetAllByIdProductsDTO>()
+            var productsDTO = new GetAllByIdProductsDTO()
             {
-                new GetAllByIdProductsDTO()
+                ProductId = products.ProductId,
+                ProductName = products.ProductName,
+                ProductDescription = products.ProductDescription,
+                CategoryId = products.CategoryId,
+                IsActive = products.IsActive,
+                CreationDate = products.CreationDate,
+                CreationUser = products.CreationUser,
+                CreationTimeZone = products.CreationTimeZone,
+                LastUpdate = products.LastUpdate,
+                StockThreshold = products.StockThreshold,
+                ProductDetails = products.ProductDetails.Select(pd => new GetProductsDetailDTO
                 {
-                    ProductId = products.ProductId,
-                    ProductName = products.ProductName,
-                    ProductDescription = products.ProductDescription,
-                    CategoryId = products.CategoryId,
-                    IsActive = products.IsActive,
-                    CreationDate = products.CreationDate,
-                    CreationUser = products.CreationUser,
-                    CreationTimeZone = products.CreationTimeZone,
-                    LastUpdate = products.LastUpdate,
-                    StockThreshold = products.StockThreshold,
-                }
+                    DetailId = pd.DetailId,
+                    ProductPrice = pd.ProductPrice,
+                    Stock = pd.Stock,
+                    WarrantyPeriod = pd.WarrantyPeriod,
+                    ModelName = pd.ModelName,
+                    ImageUrl = pd.ImageUrl,
+                    ReviewRating = pd.ReviewRating,
+                    ReviewCount = pd.ReviewCount,
+                    ProductWeight = pd.ProductWeight,
+                    ProductDimensions = pd.ProductDimensions
+                }).ToList()
             };
             
             return productsDTO;

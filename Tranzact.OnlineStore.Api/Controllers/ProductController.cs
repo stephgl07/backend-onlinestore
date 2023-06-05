@@ -40,7 +40,7 @@ namespace Tranzact.OnlineStore.Api.Controllers
         [Route("GetAllById")]
         public async Task<IActionResult> GetAllById([FromQuery] int ProductId)
         {
-            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAllById(ProductId), "Lista de productos obtenida exitosamente");
+            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAllById(ProductId), "Producto obtenido exitosamente");
             return asdas;
         }
 

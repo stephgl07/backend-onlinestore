@@ -18,5 +18,6 @@ namespace Tranzact.OnlineStore.Domain.Models.DTOs
         public string? CreationTimeZone { get; set; }
         public DateTime? LastUpdate { get; set; }
         public int? StockThreshold { get; set; }
+        public List<GetProductsDetailDTO> ProductDetails { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace Tranzact.OnlineStore.Domain.Services.Product
     {
         Task<IEnumerable<GetProductsDTO>> GetAllContent();
         Task<IEnumerable<GetProductsDTO>> GetAll();
-        Task<IEnumerable<GetAllByIdProductsDTO>> GetAllById(int ProductId);
+        Task<GetAllByIdProductsDTO?> GetAllById(int ProductId);
         Task<AddEditProductDTO> Create(AddEditProductDTO productDTO);
         Task<AddEditProductDTO> Update(AddEditProductDTO productDTO);
     }
