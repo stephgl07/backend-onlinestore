@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tranzact.OnlineStore.Domain.Models.ApiPromotion;
 
 namespace Tranzact.OnlineStore.Domain.Models.DTOs
 {
@@ -35,6 +36,7 @@ namespace Tranzact.OnlineStore.Domain.Models.DTOs
         public int? ReviewCount { get; set; }
         public decimal? ProductWeight { get; set; }
         public string? ProductDimensions { get; set; }
+        public List<PromotionDTO>? Promotions { get; set; }
     }
 
     public class GetProductSupplierDTO
@@ -74,5 +76,14 @@ namespace Tranzact.OnlineStore.Domain.Models.DTOs
         public string? CreationUser { get; set; }
         public DateTime? LastUpdate { get; set; }
         public bool? IsActive { get; set; }
+    }
+
+    public class PromotionDTO
+    {
+        public string PromotionName { get; set; }
+        public int? DiscountPercentage { get; set; }
+        public decimal? ShippingCost { get; set; }
+        public decimal? ProductDiscount { get; set; }
+        public int? QuantityThreshold { get; set; }
     }
 }

@@ -37,7 +37,8 @@ namespace Tranzact.OnlineStore.Infrastructure.Repositories.Product
         public async Task<ProductMaster?> GetById(int ProductId)
         {
             return await _entities
-                .FindAsync(ProductId);
+                .Include(pd => pd.ProductDetails)
+                .FirstOrDefaultAsync(pd => pd.ProductId == ProductId);
         }
 
         public async Task Create(ProductMaster product)

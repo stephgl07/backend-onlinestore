@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net;
-using Tranzact.OnlineStore.Domain.Exceptions.Api;
-using Tranzact.OnlineStore.Domain.Exceptions.Core.Business;
-using Tranzact.OnlineStore.Domain.Wrappers;
+using Tranzact.OnlineStore.Domain.Models.Exceptions.Api;
+using Tranzact.OnlineStore.Domain.Models.Exceptions.Core.Business;
+using Tranzact.OnlineStore.Domain.Api.Wrappers;
 
 namespace Tranzact.OnlineStore.Api.Middlewares
 {

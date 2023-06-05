@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tranzact.OnlineStore.Domain.Exceptions.Api
+namespace Tranzact.OnlineStore.Domain.Models.Exceptions.Api
 {
     public class ApiException : Exception
     {

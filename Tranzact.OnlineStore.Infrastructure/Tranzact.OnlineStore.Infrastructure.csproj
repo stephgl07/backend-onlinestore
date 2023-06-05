@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Tranzact.OnlineStore.Domain\Tranzact.OnlineStore.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

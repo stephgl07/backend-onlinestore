@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tranzact.OnlineStore.Domain.Wrappers
+namespace Tranzact.OnlineStore.Domain.Api.Wrappers
 {
     public class ApiResponse<T>
     {
