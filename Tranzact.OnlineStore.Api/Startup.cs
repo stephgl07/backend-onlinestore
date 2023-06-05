@@ -28,6 +28,8 @@ namespace Tranzact.OnlineStore.Api
 
         public void ConfigureLogging(ILoggingBuilder logging)
         {
+            logging.ClearProviders();
+            logging.AddConsole();
             logging.AddAzureWebAppDiagnostics();
         }
 
@@ -38,6 +40,11 @@ namespace Tranzact.OnlineStore.Api
                 options.FileName = "application-log.txt";
                 options.FileSizeLimit = 50 * 1024;
                 options.RetainedFileCountLimit = 5;
+            });
+
+            services.Configure<AzureBlobLoggerOptions>(options =>
+            {
+                options.BlobName = "log.txt";
             });
 
             services.AddCors(options =>
@@ -72,6 +79,7 @@ namespace Tranzact.OnlineStore.Api
             services.AddTransient<IProductDetailService, ProductDetailService>();
             services.AddTransient<IApiResponseHandler, ApiResponseHandler>();
             services.AddTransient<ErrorHandlerMiddleware>();
+            services.AddTransient<AzureLogAnalyticsMiddleware>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
