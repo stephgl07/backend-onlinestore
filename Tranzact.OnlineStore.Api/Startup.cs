@@ -42,6 +42,11 @@ namespace Tranzact.OnlineStore.Api
                 options.RetainedFileCountLimit = 5;
             });
 
+            services.Configure<AzureBlobLoggerOptions>(options =>
+            {
+                options.BlobName = "log.txt";
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy(
