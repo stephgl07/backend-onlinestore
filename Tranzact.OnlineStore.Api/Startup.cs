@@ -28,6 +28,8 @@ namespace Tranzact.OnlineStore.Api
 
         public void ConfigureLogging(ILoggingBuilder logging)
         {
+            logging.ClearProviders();
+            logging.AddConsole();
             logging.AddAzureWebAppDiagnostics();
         }
 
@@ -72,6 +74,7 @@ namespace Tranzact.OnlineStore.Api
             services.AddTransient<IProductDetailService, ProductDetailService>();
             services.AddTransient<IApiResponseHandler, ApiResponseHandler>();
             services.AddTransient<ErrorHandlerMiddleware>();
+            services.AddTransient<AzureLogAnalyticsMiddleware>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
