@@ -21,28 +21,18 @@ namespace Tranzact.OnlineStore.Api.Controllers
 
         [HttpGet]
         [Route("GetAllContent")]
-        public async Task<IActionResult> GetAllContent()
-        {
-            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAllContent(), "Lista de productos obtenida exitosamente");
-            return asdas;
-        }
+        public async Task<IActionResult> GetAllContent() => 
+            await _apiResponseHandler.HandleResponse(_productsService.GetAllContent(), "Lista de productos obtenida exitosamente");
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<IActionResult> GetAll()
-        {
-            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAll(), "Lista de productos obtenida exitosamente");
-            return asdas;
-        }
+        public async Task<IActionResult> GetAll() => 
+            await _apiResponseHandler.HandleResponse(_productsService.GetAll(), "Lista de productos obtenida exitosamente");
 
-        // Required in Document
         [HttpGet]
         [Route("GetAllById")]
-        public async Task<IActionResult> GetAllById([FromQuery] int ProductId)
-        {
-            var asdas = await _apiResponseHandler.HandleResponse(_productsService.GetAllById(ProductId), "Producto obtenido exitosamente");
-            return asdas;
-        }
+        public async Task<IActionResult> GetAllById([FromQuery] int ProductId) => 
+            await _apiResponseHandler.HandleResponse(_productsService.GetAllById(ProductId), "Producto obtenido exitosamente");
 
         [HttpPost]
         [Route("Create")]

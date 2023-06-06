@@ -11,7 +11,6 @@ namespace Tranzact.OnlineStore.Infrastructure.Api
     {
         public HttpClientWrapper()
         {
-            // Configura cualquier opción adicional que puedas necesitar para HttpClient
         }
     }
 }

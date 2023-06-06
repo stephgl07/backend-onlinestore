@@ -50,12 +50,10 @@ namespace Tranzact.OnlineStore.Infrastructure.FileStorage
             });
             var blob = contenedor.GetBlockBlobReference(fileName);
 
-            // Convertir el contenido de tipo string a bytes
             byte[] contenidoBytes = Encoding.UTF8.GetBytes(contenido);
 
             await blob.UploadFromByteArrayAsync(contenidoBytes, 0, contenidoBytes.Length);
 
-            // Establecer el tipo de contenido como "text/plain" para los archivos de texto
             blob.Properties.ContentType = "text/plain";
             await blob.SetPropertiesAsync();
 
