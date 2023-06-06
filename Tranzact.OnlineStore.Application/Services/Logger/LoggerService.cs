@@ -30,7 +30,6 @@ namespace Tranzact.OnlineStore.Application.Services.Logger
                 case "Information":
                     _logger.LogInformation(message);
                     break;
-                // Agrega más casos según los tipos de log que necesites
                 default:
                     _logger.LogInformation(message);
                     break;
