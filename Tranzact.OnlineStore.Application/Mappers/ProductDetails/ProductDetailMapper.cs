@@ -36,15 +36,15 @@ namespace Tranzact.OnlineStore.Application.Mappers.ProductDetails
                 new GetProductsDetailDTO()
                 {
                     DetailId = productDTO.DetailId,
-                ProductPrice = productDTO.ProductPrice,
-                Stock = productDTO.Stock,
-                WarrantyPeriod = productDTO.WarrantyPeriod,
-                ModelName = productDTO.ModelName,
-                ImageUrl = productDTO.ImageUrl,
-                ReviewRating = productDTO.ReviewRating,
-                ReviewCount = productDTO.ReviewCount,
-                ProductWeight = productDTO.ProductWeight,
-                ProductDimensions = productDTO.ProductDimensions
+                    ProductPrice = productDTO.ProductPrice,
+                    Stock = productDTO.Stock,
+                    WarrantyPeriod = productDTO.WarrantyPeriod,
+                    ModelName = productDTO.ModelName,
+                    ImageUrl = productDTO.ImageUrl,
+                    ReviewRating = productDTO.ReviewRating,
+                    ReviewCount = productDTO.ReviewCount,
+                    ProductWeight = productDTO.ProductWeight,
+                    ProductDimensions = productDTO.ProductDimensions
                 }
             };
         }

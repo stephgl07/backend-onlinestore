@@ -36,7 +36,7 @@ namespace Tranzact.OnlineStore.Application.Services.Product
         {
             try
             {
-                var productMaster = _productMapper.MapProductMaster(productDTO);
+                var productMaster = _productMapper.MapProductMasterCreate(productDTO);
 
                 // Iniciar transacción
                 _unitOfWork.BeginTransaction();
@@ -64,7 +64,7 @@ namespace Tranzact.OnlineStore.Application.Services.Product
         {
             try
             {
-                var productMaster = _productMapper.MapProductMaster(productDTO);
+                var productMaster = _productMapper.MapProductMasterUpdate(productDTO);
 
                 // Iniciar transacción
                 _unitOfWork.BeginTransaction();
