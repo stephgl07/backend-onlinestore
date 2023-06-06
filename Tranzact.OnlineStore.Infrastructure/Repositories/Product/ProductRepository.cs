@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tranzact.OnlineStore.Domain.Models.BusinessEntities;
 using Tranzact.OnlineStore.Domain.Models.DTOs;
+using Tranzact.OnlineStore.Domain.Models.Exceptions.Core.Business;
 using Tranzact.OnlineStore.Domain.Services.Product;
 using Tranzact.OnlineStore.Infrastructure.Data;
 
@@ -48,8 +49,19 @@ namespace Tranzact.OnlineStore.Infrastructure.Repositories.Product
         }
         public void Update(ProductMaster product)
         {
-            _entities
-                .Update(product);
+            var existingProduct = _entities.FirstOrDefault(p => p.ProductId == product.ProductId);
+
+            if (existingProduct is null)
+            {
+                throw new Exception("No se encontró producto a editar");
+            }
+            existingProduct.ProductSuppliers = product.ProductSuppliers;
+            existingProduct.Category = product.Category;
+            existingProduct.LastUpdate = product.LastUpdate;
+            existingProduct.ProductDescription = product.ProductDescription;
+            existingProduct.ProductName = product.ProductName;
+            _entities.Update(existingProduct);
+
         }
 
         public void Remove(ProductMaster product)

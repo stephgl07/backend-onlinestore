@@ -1,15 +1,16 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Tranzact.OnlineStore.Domain.Api;
 using Tranzact.OnlineStore.Domain.Api.ApiService;
 
 namespace Tranzact.OnlineStore.Infrastructure.Api.ApiService
 {
     public class ApiService : IApiService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientWrapper _httpClient;
 
-        public ApiService(HttpClient httpClient)
+        public ApiService(IHttpClientWrapper httpClient)
         {
             _httpClient = httpClient;
         }

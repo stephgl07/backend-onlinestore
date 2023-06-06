@@ -11,7 +11,7 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
     public class ProductMapper
     {
         // Map DTO to BE for Create/Update
-        public ProductMaster MapProductMaster(AddEditProductDTO productDTO)
+        public ProductMaster MapProductMasterCreate(AddEditProductDTO productDTO)
         {
             return new ProductMaster()
             {
@@ -20,10 +20,27 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
                 ProductDescription = productDTO.ProductDescription,
                 CategoryId = productDTO.CategoryId,
                 IsActive = productDTO.IsActive,
-                CreationDate = productDTO.CreationDate,
+                CreationDate = DateTime.UtcNow,
                 CreationUser = productDTO.CreationUser,
                 CreationTimeZone = productDTO.CreationTimeZone,
-                LastUpdate = productDTO.LastUpdate,
+                LastUpdate = null,
+                StockThreshold = productDTO.StockThreshold
+            };
+        }
+
+        public ProductMaster MapProductMasterUpdate(AddEditProductDTO productDTO)
+        {
+            return new ProductMaster()
+            {
+                ProductId = productDTO.ProductId,
+                ProductName = productDTO.ProductName,
+                ProductDescription = productDTO.ProductDescription,
+                CategoryId = productDTO.CategoryId,
+                IsActive = productDTO.IsActive,
+                CreationDate = null,
+                CreationUser = productDTO.CreationUser,
+                CreationTimeZone = productDTO.CreationTimeZone,
+                LastUpdate = DateTime.UtcNow,
                 StockThreshold = productDTO.StockThreshold
             };
         }
