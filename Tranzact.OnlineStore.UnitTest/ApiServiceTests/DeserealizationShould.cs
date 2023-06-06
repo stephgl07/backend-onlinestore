@@ -36,28 +36,28 @@ namespace Tranzact.OnlineStore.UnitTest.ApiServiceTests
             var apiResponse = JsonConvert.DeserializeObject<ApiPromResponse>(strResponseApi);
 
             // Assert
-            Assert.Equal(expectedResponse.Success, apiResponse.Success);
-            Assert.Equal(expectedResponse.Message, apiResponse.Message);
-            Assert.Equal(expectedResponse.Data.Count, apiResponse.Data.Count);
+            Assert.Equal(expectedResponse.Success, apiResponse?.Success);
+            Assert.Equal(expectedResponse.Message, apiResponse?.Message);
+            Assert.Equal(expectedResponse.Data?.Count, apiResponse?.Data?.Count);
 
-            for (int i = 0; i < expectedResponse.Data.Count; i++)
+            for (int i = 0; i < expectedResponse?.Data?.Count; i++)
             {
-                var expectedProductDetail = expectedResponse.Data[i];
-                var actualProductDetail = apiResponse.Data[i];
+                var expectedProductDetail = expectedResponse?.Data?[i];
+                var actualProductDetail = apiResponse?.Data?[i];
 
-                Assert.Equal(expectedProductDetail.DetailId, actualProductDetail.DetailId);
+                Assert.Equal(expectedProductDetail?.DetailId, actualProductDetail?.DetailId);
 
-                for (int j = 0; j < expectedProductDetail.Promotions.Count; j++)
+                for (int j = 0; j < expectedProductDetail?.Promotions.Count; j++)
                 {
                     var expectedPromotion = expectedProductDetail.Promotions[j];
-                    var actualPromotion = actualProductDetail.Promotions[j];
+                    var actualPromotion = actualProductDetail?.Promotions[j];
 
-                    Assert.Equal(expectedPromotion._id, actualPromotion._id);
-                    Assert.Equal(expectedPromotion.PromotionName, actualPromotion.PromotionName);
-                    Assert.Equal(expectedPromotion.DiscountPercentage, actualPromotion.DiscountPercentage);
-                    Assert.Equal(expectedPromotion.ShippingCost, actualPromotion.ShippingCost);
-                    Assert.Equal(expectedPromotion.ProductDiscount, actualPromotion.ProductDiscount);
-                    Assert.Equal(expectedPromotion.QuantityThreshold, actualPromotion.QuantityThreshold);
+                    Assert.Equal(expectedPromotion._id, actualPromotion?._id);
+                    Assert.Equal(expectedPromotion.PromotionName, actualPromotion?.PromotionName);
+                    Assert.Equal(expectedPromotion.DiscountPercentage, actualPromotion?.DiscountPercentage);
+                    Assert.Equal(expectedPromotion.ShippingCost, actualPromotion?.ShippingCost);
+                    Assert.Equal(expectedPromotion.ProductDiscount, actualPromotion?.ProductDiscount);
+                    Assert.Equal(expectedPromotion.QuantityThreshold, actualPromotion?.QuantityThreshold);
                 }
             }
         }

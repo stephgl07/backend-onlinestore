@@ -72,7 +72,7 @@ namespace Tranzact.OnlineStore.Api.Middlewares
                     default:
                         // unhandled error
                         response.StatusCode = StatusCodes.Status500InternalServerError;
-                        _loggerService.InsertLog("Error", error.Message); // Registrar log de error
+                        _loggerService.InsertLog("Error", error?.Message ?? "Error message don't caugth"); // Registrar log de error
                         break;
                 }
 
