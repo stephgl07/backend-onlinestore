@@ -101,46 +101,35 @@ namespace Tranzact.OnlineStore.Application.Services.Product
         public async Task<GetAllByIdProductsDTO?> GetAllById(int ProductId)
         {
             ProductMaster? product = await _unitOfWork.ProductMaster.GetById(ProductId);
-            if(product is null)
-            {
-                return null;
-            }
+            if (product is null) return null;
             var productDTO = _productMapper.MapProductMasterGetAllById(product);
             var strProduct = JsonConvert.SerializeObject(productDTO);
 
             string url = _appConfiguration.GetApiPromotionsUrl();
             var strResponseApi = await _apiService.SendPostRequestAsync(url, JsonConvert.SerializeObject(new { ProductId }));
-            try
+
+            var apiResponse = JsonConvert.DeserializeObject<ApiPromResponse>(strResponseApi);
+            if (apiResponse.Success)
             {
-                var apiResponse = JsonConvert.DeserializeObject<ApiPromResponse>(strResponseApi);
-
-                if (apiResponse.Success)
+                // Recorre cada detalle de producto en el DTO
+                foreach (var productDetail in productDTO.ProductDetails)
                 {
-                    // Recorre cada detalle de producto en el DTO
-                    foreach (var productDetail in productDTO.ProductDetails)
-                    {
-                        // Busca la promoción correspondiente al DetailId del detalle actual
-                        var promotion = apiResponse.Data?.FirstOrDefault(d => d.DetailId == productDetail.DetailId)?.Promotions;
+                    // Busca la promoción correspondiente al DetailId del detalle actual
+                    var promotion = apiResponse.Data?.FirstOrDefault(d => d.DetailId == productDetail.DetailId)?.Promotions;
 
-                        // Si se encontró una promoción para el detalle actual, asígnala al detalle de producto
-                        if (promotion != null)
+                    // Si se encontró una promoción para el detalle actual, asígnala al detalle de producto
+                    if (promotion != null)
+                    {
+                        productDetail.Promotions = promotion.Select(p => new PromotionDTO
                         {
-                            productDetail.Promotions = promotion.Select(p => new PromotionDTO
-                            {
-                                PromotionName = p.PromotionName,
-                                DiscountPercentage = p.DiscountPercentage,
-                                ShippingCost = p.ShippingCost,
-                                ProductDiscount = p.ProductDiscount,
-                                QuantityThreshold = p.QuantityThreshold
-                            }).ToList();
-                        }
+                            PromotionName = p.PromotionName,
+                            DiscountPercentage = p.DiscountPercentage,
+                            ShippingCost = p.ShippingCost,
+                            ProductDiscount = p.ProductDiscount,
+                            QuantityThreshold = p.QuantityThreshold
+                        }).ToList();
                     }
                 }
-
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.ToString());
             }
 
             return productDTO;
