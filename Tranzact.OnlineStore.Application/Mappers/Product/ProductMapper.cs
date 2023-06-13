@@ -55,8 +55,10 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
 
                 if (creationDate.HasValue)
                 {
-                    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById(p.CreationTimeZone ?? "America/Lima");
-                    convertedCreationDate = TimeZoneInfo.ConvertTimeToUtc(creationDate.Value, timeZone);
+                    //TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById(p.CreationTimeZone ?? "America/Lima");
+                    //convertedCreationDate = TimeZoneInfo.ConvertTimeToUtc(creationDate.Value, timeZone);
+
+                    convertedCreationDate = creationDate.Value;
                 }
 
                 return new GetProductsDTO()
