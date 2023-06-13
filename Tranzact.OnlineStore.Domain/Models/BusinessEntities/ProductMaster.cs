@@ -21,7 +21,6 @@ namespace Tranzact.OnlineStore.Domain.Models.BusinessEntities
         public string? CreationTimeZone { get; set; }
         public DateTime? LastUpdate { get; set; }
         public int? StockThreshold { get; set; }
-
         public virtual ProductCategory? Category { get; set; }
         public virtual ICollection<ProductDetail> ProductDetails { get; set; }
         public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; }

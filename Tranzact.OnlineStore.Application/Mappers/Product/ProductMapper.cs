@@ -20,7 +20,7 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
                 ProductDescription = productDTO.ProductDescription,
                 CategoryId = productDTO.CategoryId,
                 IsActive = productDTO.IsActive,
-                CreationDate = DateTime.UtcNow,
+                CreationDate = Convert.ToDateTime(productDTO.CreationDateUtc),
                 CreationUser = productDTO.CreationUser,
                 CreationTimeZone = productDTO.CreationTimeZone,
                 LastUpdate = null,
@@ -48,32 +48,41 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
         // Map BE to DTO for GetAll
         public IEnumerable<GetProductsDTO> MapProductMasterGetAll(IEnumerable<ProductMaster> products)
         {
-            var productsDTO = products.Select(p => new GetProductsDTO()
+            var productsDTO = products.Select(p =>
             {
-                ProductId = p.ProductId,
-                ProductName = p.ProductName,
-                ProductDescription = p.ProductDescription,
-                CategoryId = p.CategoryId,
-                IsActive = p.IsActive,
-                CreationDate = p.CreationDate,
-                CreationUser = p.CreationUser,
-                CreationTimeZone = p.CreationTimeZone,
-                LastUpdate = p.LastUpdate,
-                StockThreshold = p.StockThreshold,
-                Category = (p.Category is null) ? null : new GetProductCategoryDTO()
+                DateTime? creationDate = p.CreationDate;
+                DateTime? convertedCreationDate = null;
+
+                if (creationDate.HasValue)
                 {
-                    CategoryId = p.Category.CategoryId,
-                    CategoryName = p.Category.CategoryName,
-                    CategoryDescription = p.Category.CategoryDescription,
-                    CreationDate = p.Category.CreationDate,
-                    CreationUser = p.Category.CreationUser,
-                    IsActive = p.Category.IsActive,
-                    LastUpdate = p.Category.LastUpdate,
-                    ParentCategoryId = p.Category.ParentCategoryId
-                },
-                ProductDetails = p.ProductDetails.Select(detail =>
+                    TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById(p.CreationTimeZone ?? "America/Lima");
+                    convertedCreationDate = TimeZoneInfo.ConvertTimeToUtc(creationDate.Value, timeZone);
+                }
+
+                return new GetProductsDTO()
                 {
-                    return new GetProductsDetailDTO()
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    ProductDescription = p.ProductDescription,
+                    CategoryId = p.CategoryId,
+                    IsActive = p.IsActive,
+                    CreationDate = convertedCreationDate?.ToString("dd/MM/yyyy HH:mm") ?? "-",
+                    CreationUser = p.CreationUser,
+                    CreationTimeZone = p.CreationTimeZone,
+                    LastUpdate = p.LastUpdate?.ToString("dd/MM/yyyy HH:mm") ?? "-",
+                    StockThreshold = p.StockThreshold,
+                    Category = (p.Category is null) ? null : new GetProductCategoryDTO()
+                    {
+                        CategoryId = p.Category.CategoryId,
+                        CategoryName = p.Category.CategoryName,
+                        CategoryDescription = p.Category.CategoryDescription,
+                        CreationDate = p.Category.CreationDate,
+                        CreationUser = p.Category.CreationUser,
+                        IsActive = p.Category.IsActive,
+                        LastUpdate = p.Category.LastUpdate,
+                        ParentCategoryId = p.Category.ParentCategoryId
+                    },
+                    ProductDetails = p.ProductDetails.Select(detail => new GetProductsDetailDTO()
                     {
                         DetailId = detail.DetailId,
                         ProductPrice = detail.ProductPrice,
@@ -85,11 +94,8 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
                         ReviewCount = detail.ReviewCount,
                         ProductWeight = detail.ProductWeight,
                         ProductDimensions = detail.ProductDimensions
-                    };
-                }).ToList(),
-                ProductSuppliers = p.ProductSuppliers.Select(productSupplier =>
-                {
-                    return new GetProductSupplierDTO()
+                    }).ToList(),
+                    ProductSuppliers = p.ProductSuppliers.Select(productSupplier => new GetProductSupplierDTO()
                     {
                         SupplierId = productSupplier.SupplierId,
                         BatchNumber = productSupplier.BatchNumber,
@@ -112,10 +118,12 @@ namespace Tranzact.OnlineStore.Application.Mappers.Product
                             SupplierName = productSupplier.Supplier.SupplierName,
                             WebsiteUrl = productSupplier.Supplier.WebsiteUrl
                         },
-                    };
-                }).ToList()
+                    }).ToList()
+                };
             });
+
             return productsDTO;
+
         }
 
         // Map BE to DTO for GetAllById

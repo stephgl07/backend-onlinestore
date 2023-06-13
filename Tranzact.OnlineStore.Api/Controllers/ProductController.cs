@@ -19,6 +19,7 @@ namespace Tranzact.OnlineStore.Api.Controllers
             _apiResponseHandler = apiResponseHandler;
         }
 
+        [NonAction]
         [HttpGet]
         [Route("GetAllContent")]
         public async Task<IActionResult> GetAllContent() => 
