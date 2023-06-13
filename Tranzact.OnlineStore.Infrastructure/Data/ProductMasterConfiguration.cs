@@ -33,8 +33,11 @@ namespace Tranzact.OnlineStore.Infrastructure.Data
                 .HasMaxLength(5000)
                 .IsUnicode(false);
 
-            entity.Property(e => e.ProductName)
-                .HasMaxLength(100)
+            entity.Property(e => e.StockThreshold)
+                .IsUnicode(false);
+
+            entity.Property(e => e.CreationTimeZone)
+                .HasMaxLength(250)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.Category)

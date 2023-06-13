@@ -14,10 +14,10 @@ namespace Tranzact.OnlineStore.Domain.Models.DTOs
         public string? ProductDescription { get; set; }
         public int? CategoryId { get; set; }
         public bool? IsActive { get; set; }
-        public DateTime? CreationDate { get; set; }
+        public string? CreationDate { get; set; }
         public string? CreationUser { get; set; }
         public string? CreationTimeZone { get; set; }
-        public DateTime? LastUpdate { get; set; }
+        public string? LastUpdate { get; set; }
         public int? StockThreshold { get; set; }
         public virtual GetProductCategoryDTO? Category { get; set; }
         public List<GetProductsDetailDTO> ProductDetails { get; set; }

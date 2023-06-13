@@ -60,6 +60,7 @@ namespace Tranzact.OnlineStore.Infrastructure.Repositories.Product
             existingProduct.LastUpdate = product.LastUpdate;
             existingProduct.ProductDescription = product.ProductDescription;
             existingProduct.ProductName = product.ProductName;
+            existingProduct.StockThreshold = product.StockThreshold;
             _entities.Update(existingProduct);
 
         }

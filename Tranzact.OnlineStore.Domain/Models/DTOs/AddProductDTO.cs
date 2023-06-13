@@ -15,6 +15,7 @@ namespace Tranzact.OnlineStore.Domain.Models.DTOs
         public bool? IsActive { get; set; }
         public string? CreationUser { get; set; }
         public string? CreationTimeZone { get; set; }
+        public string? CreationDateUtc { get; set; }
         public int? StockThreshold { get; set; }
         public List<AddEditProductDetailDTO> ProductDetails { get; set; }
     }
